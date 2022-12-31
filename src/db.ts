@@ -14,6 +14,7 @@ export async function setupDB(connectionString: string) {
 
   const db = new Database(connection);
 
-  await db.sync(Models);
+  db.link([Models.User]);
+  await db.sync();
   return db;
 }

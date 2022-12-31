@@ -50,21 +50,21 @@ export default function (): XepiConfig {
       }
     }
     config.rootURL = rootURL;
-
-    // Config DB URL
-    let envDbURI = Deno.env.get("DB_URL");
-    if (envDbURI != undefined) {
-      config.dbURI = envDbURI;
-    } else {
-      console.error(
-        "DB_URL not specified. If you are attempting to use DB_USER, DB_HOST, and the like, that is currently unsupported.",
-      );
-      failed = true;
-      envDbURI = "";
-    }
   } else {
     console.warn("No root URL specified... Using default root '/'");
     config.rootURL = "";
+  }
+
+  // Config DB URL
+  let envDbURI = Deno.env.get("DB_URI");
+  if (envDbURI != undefined) {
+    config.dbURI = envDbURI;
+  } else {
+    console.error(
+      "DB_URL not specified. If you are attempting to use DB_USER, DB_HOST, and the like, that is currently unsupported.",
+    );
+    failed = true;
+    envDbURI = "";
   }
 
   // Get port from environment
