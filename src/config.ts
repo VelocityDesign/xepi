@@ -1,7 +1,7 @@
 import { XepiConfig } from "../lib/types.ts";
 
 // Load dotenv
-import "https://deno.land/std/dotenv/load.ts"
+import "https://deno.land/std/dotenv/load.ts";
 
 export default function (): XepiConfig {
   // deno-lint-ignore prefer-const
@@ -9,6 +9,7 @@ export default function (): XepiConfig {
     host: "",
     port: NaN,
     rootURL: "",
+    dbURI: "",
     options: {},
   };
 
@@ -49,6 +50,18 @@ export default function (): XepiConfig {
       }
     }
     config.rootURL = rootURL;
+
+    // Config DB URL
+    let envDbURI = Deno.env.get("DB_URL");
+    if (envDbURI != undefined) {
+      config.dbURI = envDbURI;
+    } else {
+      console.error(
+        "DB_URL not specified. If you are attempting to use DB_USER, DB_HOST, and the like, that is currently unsupported.",
+      );
+      failed = true;
+      envDbURI = "";
+    }
   } else {
     console.warn("No root URL specified... Using default root '/'");
     config.rootURL = "";
