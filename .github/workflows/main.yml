@@ -48,7 +48,7 @@ jobs:
       contents: read
     
     env:
-      REGISTRY: ghcr.io
+      REGISTRY: docker.io
       IMAGE_NAME: ${{ github.repository }}
     
     steps:
